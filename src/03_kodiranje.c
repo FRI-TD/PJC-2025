@@ -2,7 +2,6 @@
 #include <string.h>
 
 extern int x;
-extern int moja_privatna;
 
 void kodiraj(char[], char[], int);
 
