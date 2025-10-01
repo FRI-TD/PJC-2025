@@ -1,3 +1,9 @@
+// funkcijo dodajZ zelim klicati
+
+// ne takole:   z = dodajZ(z, n);
+
+// ampak takole: dodaj(&z,n);
+
 #define MAX_OCEN 10
 #include <stdio.h>
 #include <stdlib.h>
@@ -54,9 +60,9 @@ void izpisiStudenta(student *s) {
 
 // funkcija v seznam, ki se zacne pri z, NA ZACETEK doda novega
 // studenta n in vrne kazalec na zacetek seznama
-student * dodajZ(student *z, student*n) {
-    n -> next = z;
-    return n;
+void dodajZ(student **z, student*n) {
+    n -> next = *z;
+    *z = n;
 }
 
 
@@ -78,7 +84,7 @@ student * dodajK(student *z, student*n) {
 // NA PRAVO MESTO doda novega studenta n in vrne kazalec na zacetek seznama
 student * dodajU(student *z, student*n) {
     if (z == NULL || z->id >= n->id)
-        return dodajZ(z, n);
+        dodajZ(&z, n);
 
     student *t = z;
     while (t->next != NULL && t->next->id < n->id)
@@ -134,14 +140,13 @@ int main(int argc, char *argv[]) {
     // kazalec na zacetek seznama
     student *z = NULL;
 
-    z = dodajK(z, s4); // na seznam, ki se začne pri z, dodaj studenta s1
-    z = dodajK(z, s6);
-    //z = dodajK(z, s1);
-    //z = dodajK(z, s2);
-    //z = dodajK(z, s3);
+    dodajZ(&z, s6);
+    dodajZ(&z, s1);
+    dodajZ(&z, s2);
+    dodajZ(&z, s3);
 
-    z = brisiElement(z, 63240004);
-    z = brisiElement(z, 63240006);
+    //z = brisiElement(z, 63240004);
+    //z = brisiElement(z, 63240006);
 
     izpisiSeznam(z);
 }
